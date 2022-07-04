@@ -1,0 +1,25 @@
+.about {
+    @extend %page;
+
+    // &--active {
+    //     background-color: $color-greycloud;
+    //     color: $color-tuna;
+    // }
+}
+.about__wrapper {
+
+    
+}
+
+
+.about__title {
+    @extend %title-100;
+ text-align: center;
+ margin: auto;
+
+
+ @include media('<phone') {
+    max-width: 67.7rem;
+ }
+}
+

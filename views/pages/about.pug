@@ -1,0 +1,48 @@
+extends ../base.pug 
+
+block variables 
+    - var template = 'about'
+
+block content  
+    .about(data-background='#B2B8C3' data-color='#37384C')
+        .about__wrapper
+            section.about__gallery
+                .about__gallery__wrapper 
+                    each media in about.gallery
+                        figure.about__gallery__media
+                            img.about__gallery__media__image(alt=media.image.alt ,data-src=media.image.url)
+
+            each slice in about.body 
+                case slice.slice_type
+
+                    when 'title'
+                        h2.about__title(data-animation='title')!=slice.primary.text.replace(/\n/g, '<br>')
+                        
+                    when 'content'
+                        section.about__content(class=`${slice.primary.type === 'Left' ? 'about__content--left': 'about__content--right'}`)
+                            .about__content__wrapper 
+                                .about__content__box
+                                    p.about__content__label(data-animation="label")=slice.primary.label
+                                    .about__content__description(data-animation="paragraph")!=ctx.prismicH.asHTML(slice.primary.description)
+                                figure.about__content__media 
+                                    img.about__content__media__image(alt=slice.primary.image.alt,data-src=slice.primary.image.url)
+
+                    when 'hightlight'
+                        section.about__highlight 
+                            .about__highlight__wrapper 
+                                if slice.primary.label
+                                    p.about__highlight__lable(data-animation="label")=slice.primary.label
+                                h3.about__highlight__title(data-animation="highlight")=slice.primary.title1
+                                
+                                .about__highlight__medias
+                                    each media in slice.items 
+                                        figure.about__highlight__media 
+                                            img.about__highlight__media__image(alt=media.images.alt,data-src=media.images.url)
+
+
+                    when 'gallery'
+                         section.about__gallery 
+                            .about__gallery__wrapper 
+                                each media in slice.items
+                                    figure.about__gallery__media
+                                        img.about__gallery__media__image(alt=media.image.alt ,data-src=media.image.url)
